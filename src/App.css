@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Reset ─────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ── App root ───────────────────────────────── */
+.app-root {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background: linear-gradient(160deg, #f5f3ff 0%, #ede9fe 50%, #fce7f3 100%);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* ── Loader (inside R3F Html) ───────────────── */
+.loader-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #7c3aed;
+}
+
+.loader-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid #ede9fe;
+  border-top-color: #7c3aed;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-text {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Color Picker Panel ─────────────────────── */
+.color-panel {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 20px;
+  padding: 18px 16px;
+  width: 244px;
+  box-shadow: 0 8px 40px rgba(124, 58, 237, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Category Switcher Tabs ─────────────────── */
+.category-tabs {
+  display: flex;
+  background: #f1f0fb;
+  padding: 3px;
+  border-radius: 12px;
+  gap: 4px;
+}
+
+.category-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 7px 8px;
+  border-radius: 9px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #64748b;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+.category-tab:hover {
+  color: #1e1b4b;
+}
+
+.category-tab--active {
+  background: #ffffff;
+  color: #7c3aed;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.12), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.category-tab__pip {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+
+/* Panel header row */
+.color-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+/* Live color preview dot */
+.color-panel__dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+  flex-shrink: 0;
+}
+
+.color-panel__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e1b4b;
+  line-height: 1.2;
+}
+
+.color-panel__sub {
+  font-size: 11px;
+  color: #7c3aed;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.color-panel__divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(124, 58, 237, 0.15), transparent);
+  margin: 14px 0;
+}
+
+/* Swatch grid */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* ── ColorSwatch component ──────────────────── */
+.swatch-btn {
+  position: relative;
+  background: white;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 10px 8px 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  outline: none;
+  font-family: inherit;
+}
+
+.swatch-btn--active,
+.swatch-btn--hovered {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.swatch-btn--active {
+  border-color: rgba(124, 58, 237, 0.4);
+}
+
+.swatch-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.swatch-label {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: #6b7280;
+  font-family: inherit;
+}
+
+.swatch-label--active {
+  color: #1e1b4b;
+  font-weight: 600;
+}
+
+.swatch-check {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  font-size: 9px;
+  color: #7c3aed;
+  font-weight: 800;
+}
+
+/* ── Randomize Outfit Button ────────────────── */
+.randomize-btn {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: linear-gradient(135deg, #7c3aed, #6366f1);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.25);
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.randomize-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+  background: linear-gradient(135deg, #6d28d9, #4f46e5);
+}
+
+.randomize-btn:active {
+  transform: translateY(0);
+}
+
+/* ── Hint text ──────────────────────────────── */
+.color-panel__hint {
+  margin-top: 12px;
+  font-size: 10px;
+  color: #9ca3af;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* ── Animation Switcher Panel ───────────────── */
+.anim-panel {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 20px;
+  padding: 20px 18px;
+  width: 160px;
+  box-shadow: 0 8px 40px rgba(124, 58, 237, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.anim-panel__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e1b4b;
+  margin-bottom: 4px;
+}
+
+.anim-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.anim-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: white;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+}
+
+.anim-btn:hover {
+  background: #f5f3ff;
+  border-color: #a78bfa;
+  transform: translateX(2px);
+}
+
+.anim-btn--active {
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  border-color: #7c3aed;
+  color: #7c3aed;
+  font-weight: 600;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.12);
+}
+

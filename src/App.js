@@ -22,12 +22,14 @@ const ANIMATIONS = [
   { name: "default", label: "Default", icon: "🧍" },
   { name: "breathing", label: "Breathing", icon: "🫁" },
   { name: "dance", label: "Dancing", icon: "🕺" },
+  { name: "dance2", label: "Dance 2", icon: "🕺" },
 ];
 
 export default function App() {
   const [activeCategory, setActiveCategory] = useState("shirt"); // "shirt" | "pants"
   const [shirtColor, setShirtColor] = useState(SHIRT_COLORS[0].hex);
   const [pantsColor, setPantsColor] = useState(PANTS_COLORS[0].hex);
+  const [playMusic,setPlayMusic] = useState(false);
   const [activeAnimation, setActiveAnimation] = useState("breathing");
 
   const currentColors = activeCategory === "shirt" ? SHIRT_COLORS : PANTS_COLORS;
@@ -49,6 +51,9 @@ export default function App() {
     setPantsColor(randomPants);
   };
 
+  const handlePlayMusic = ()=>{
+    setPlayMusic(!playMusic)
+  }
   return (
     <div className="app-root">
 
@@ -64,6 +69,7 @@ export default function App() {
             shirtColor={shirtColor}
             pantsColor={pantsColor}
             activeAnimation={activeAnimation}
+            playMusic={playMusic}
           />
         </Suspense>
 
@@ -139,6 +145,10 @@ export default function App() {
         <button className="randomize-btn" onClick={handleRandomize}>
           <span>🎲</span>
           <span>Randomize Outfit</span>
+        </button>
+        <button className="randomize-btn" onClick={()=>handlePlayMusic()}>
+          {/* <span></span> */}
+          <span>Play music</span>
         </button>
 
         <p className="color-panel__hint">🖱 Drag to rotate · Scroll to zoom</p>
